@@ -1,3 +1,4 @@
+```javascript
 /**
  * Main JavaScript File for Connor Passingham Portfolio
  */
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Modal System for Projects ---
+    // --- Modal System for Projects & Certificates ---
     const modalOpenButtons = document.querySelectorAll('[data-modal-target]');
     const modalCloseButtons = document.querySelectorAll('[data-modal-close]');
     let previouslyFocusedElement = null;
@@ -151,16 +152,45 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('modal-open');
         document.body.style.removeProperty('--scrollbar-width');
         
+        // Clean up certificate iframe if it's the cert modal
+        if (modal.id === 'modal-certificate') {
+            const iframe = modal.querySelector('#cert-preview-iframe');
+            if (iframe) iframe.src = '';
+        }
+
         if (previouslyFocusedElement) {
             previouslyFocusedElement.focus();
         }
     };
 
-    // Attach open events
+    // Attach open events for standard modals
     modalOpenButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const modalId = btn.getAttribute('data-modal-target');
             openModal(modalId);
+        });
+    });
+
+    // --- Dynamic Certificate Modal Logic ---
+    const certOpenButtons = document.querySelectorAll('[data-cert-modal]');
+    const certModalTitle = document.getElementById('cert-modal-title');
+    const certIframe = document.getElementById('cert-preview-iframe');
+    const certExternalLink = document.getElementById('cert-external-link');
+
+    certOpenButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const pdfUrl = btn.getAttribute('data-cert-modal');
+            const title = btn.getAttribute('data-cert-title');
+            
+            if (certModalTitle) certModalTitle.textContent = title;
+            if (certExternalLink) certExternalLink.href = pdfUrl;
+            
+            // Only load iframe on desktop
+            if (certIframe && window.innerWidth > 768) {
+                certIframe.src = pdfUrl;
+            }
+            
+            openModal('modal-certificate');
         });
     });
 
@@ -239,3 +269,4 @@ document.addEventListener('DOMContentLoaded', () => {
         yearSpan.textContent = new Date().getFullYear();
     }
 });
+```
