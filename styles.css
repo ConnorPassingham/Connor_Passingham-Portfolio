@@ -45,6 +45,8 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--nav-height);
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -54,6 +56,8 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Body lock when modal is open */
@@ -1191,6 +1195,161 @@ img {
 }
 
 /* ==========================================================================
+   CV Section
+   ========================================================================== */
+.cv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+}
+
+.cv-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cv-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.cv-card-title {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.cv-card-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.cv-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.cv-actions .btn {
+    flex: 1;
+    min-width: max-content;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   Contact Section
+   ========================================================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+}
+
+.contact-lead {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-list li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.contact-list strong {
+    color: var(--text-primary);
+    display: inline-block;
+    min-width: 100px;
+}
+
+.contact-form-wrapper {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-primary);
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(23, 59, 99, 0.1);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-status {
+    margin-bottom: 1.25rem;
+    font-size: 0.875rem;
+    border-radius: var(--radius-sm);
+    display: none;
+    padding: 0.75rem;
+}
+
+.form-status.is-visible {
+    display: block;
+}
+
+.form-status.info {
+    background-color: #f0f7f7;
+    color: var(--accent);
+    border: 1px solid #bfe5e5;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-submit-btn {
+    flex: 1;
+}
+
+/* ==========================================================================
    Modals
    ========================================================================== */
 .modal-system {
@@ -1445,17 +1604,6 @@ img {
     gap: 0.5rem;
 }
 
-.placeholder-modal-text {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    background-color: var(--background);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius-sm);
-    padding: 1rem;
-    text-align: center;
-    margin-bottom: 1rem !important;
-}
-
 .modal-footer {
     margin-top: auto;
     padding-top: var(--space-md);
@@ -1467,24 +1615,6 @@ img {
 .modal-footer .btn {
     flex: 1;
     min-width: max-content;
-    text-align: center;
-}
-
-/* ==========================================================================
-   Placeholders
-   ========================================================================== */
-.placeholder-section {
-    border-top: 1px solid var(--border);
-    background-color: var(--background);
-}
-
-.placeholder-text {
-    color: var(--text-secondary);
-    font-size: 1.125rem;
-    padding: var(--space-md);
-    background-color: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius-md);
     text-align: center;
 }
 
@@ -1565,7 +1695,7 @@ img {
         transform: none;
         transition: none;
     }
-    .project-card:hover, .cert-card:hover, .skill-category-card:hover, .achieve-card:hover {
+    .project-card:hover, .cert-card:hover, .skill-category-card:hover, .achieve-card:hover, .cv-card:hover {
         transform: none;
     }
     .project-card:hover .project-img {
@@ -1583,7 +1713,7 @@ img {
     .nav-list {
         gap: 1rem;
     }
-    .hero-container, .about-grid, .football-intro-grid {
+    .hero-container, .about-grid, .football-intro-grid, .contact-grid {
         grid-template-columns: 1fr;
         gap: var(--space-md);
     }
@@ -1616,6 +1746,10 @@ img {
 
     .leadership-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .contact-info {
+        margin-bottom: var(--space-md);
     }
 }
 
@@ -1666,7 +1800,7 @@ img {
         transform: translateY(-7px) rotate(-45deg);
     }
 
-    .hero-actions, .edu-actions, .project-actions, .modal-footer {
+    .hero-actions, .edu-actions, .project-actions, .modal-footer, .cv-actions, .form-actions {
         flex-direction: column;
     }
     
@@ -1727,5 +1861,9 @@ img {
 
     .qualification-banner h3 {
         font-size: 1.5rem;
+    }
+    
+    .cv-grid {
+        grid-template-columns: 1fr;
     }
 }
