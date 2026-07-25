@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- Mobile Navigation Toggle ---
@@ -258,6 +257,44 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // --- Contact Form Validation & Submission Demo ---
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+
+    if (contactForm && formStatus) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Basic validation check
+            let isValid = true;
+            const inputs = contactForm.querySelectorAll('input[required], textarea[required]');
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#e11d48'; // Red indicator
+                } else {
+                    input.style.borderColor = 'var(--border)';
+                }
+            });
+
+            if (!isValid) {
+                formStatus.textContent = 'Please fill out all required fields.';
+                formStatus.className = 'form-status is-visible info';
+                formStatus.style.color = '#e11d48';
+                return;
+            }
+
+            // Display honest demonstration message
+            formStatus.textContent = 'This form is currently in demonstration mode. Please use the direct email link below to get in touch.';
+            formStatus.className = 'form-status is-visible info';
+            formStatus.style.color = 'var(--accent)';
+            
+            // TODO: To implement real sending via Formspree, remove this block and set the 
+            // <form> tag's 'action' to your Formspree endpoint URL and 'method' to "POST".
+        });
+    }
 
     // --- Dynamic Footer Year ---
     const yearSpan = document.getElementById('current-year');
