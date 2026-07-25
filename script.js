@@ -1,3 +1,5 @@
+### 3. script.js
+
 ```javascript
 /**
  * Main JavaScript File for Connor Passingham Portfolio
